@@ -1,97 +1,48 @@
-# Oracle + MySQL Dev Container Starter
+# DBMS Exercises
 
-A small SQL playground that brings Oracle XE 21c and MySQL 8.0 into one VS Code Dev Container.
+SQL and PL/SQL exercises covering core database concepts, from DDL and DML through to PL/SQL programming.
 
-It includes:
+## Exercises
 
-- Oracle XE 21c
-- MySQL 8.0
-- CloudBeaver web UI for browsing both databases
-- SQL\*Plus and MySQL CLI inside the dev container
-- A helper script for quick CLI access
+| # | Topic | Concepts Covered |
+|---|-------|-----------------|
+| [1](exercises/exercise-1.md) | Creating Database Tables | `CREATE TABLE`, `ALTER TABLE`, `DROP`, `TRUNCATE`, `RENAME` |
+| [2](exercises/exercise-2.md) | Data Manipulation Language | `INSERT`, `UPDATE`, `DELETE`, `SELECT` |
+| [3](exercises/exercise-3.md) | Basic SELECT Statements | Filtering, sorting, `LIKE`, `IN`, `BETWEEN`, `IS NULL`, `DISTINCT` |
+| [4](exercises/exercise-4.md) | Integrity Constraints | `PRIMARY KEY`, `FOREIGN KEY`, `UNIQUE`, `NOT NULL`, `CHECK`, `DEFAULT` |
+| [5](exercises/exercise-5.md) | DCL and TCL | `GRANT`, `REVOKE`, `COMMIT`, `ROLLBACK`, `SAVEPOINT` |
+| [6](exercises/exercise-6.md) | SQL Aggregate Functions | `COUNT`, `SUM`, `AVG`, `MAX`, `MIN`, `GROUP BY`, `HAVING` |
+| [7](exercises/exercise-7.md) | Joining Tables | `INNER JOIN`, `LEFT JOIN`, `CROSS JOIN`, equi-joins |
+| [8](exercises/exercise-8.md) | Sub Queries | Scalar, multi-row, correlated subqueries, `ANY`, `ALL`, `IN` |
+| [9](exercises/exercise-9.md) | Views | `CREATE VIEW`, `CREATE OR REPLACE VIEW`, `WITH READ ONLY`, `DROP VIEW` |
+| [10](exercises/exercise-10.md) | PL/SQL Conditionals & Loops | `IF/ELSIF/ELSE`, `FOR` loop, `WHILE` loop, substitution variables |
+| [11](exercises/exercise-11.md) | PL/SQL Procedures | `CREATE PROCEDURE`, `IN`/`OUT` parameters, `EXECUTE` |
+| [12](exercises/exercise-12.md) | PL/SQL Functions | `CREATE FUNCTION`, `RETURN`, recursive functions, `DUAL` |
+| [13](exercises/exercise-13.md) | PL/SQL Cursors | Implicit cursors, explicit cursors, `OPEN/FETCH/CLOSE`, cursor attributes |
+| [14](exercises/exercise-14.md) | Exception Handling | Predefined exceptions, user-defined exceptions, `RAISE`, `SQLERRM` |
+| [15](exercises/exercise-15.md) | PL/SQL Triggers | `BEFORE/AFTER` triggers, `:NEW`/`:OLD`, `INSERTING`/`UPDATING` predicates |
 
-## Quick Start
+## Schema
 
-1. Open the project in VS Code.
-2. Reopen it in the Dev Container.
-3. Wait for the databases to finish starting.
-4. Connect with the CLI commands below or a database client of your choice.
+Most exercises use the classic Oracle **EMP** and **DEPT** tables:
 
-## Services
+**DEPT**
 
-### Oracle
+| Column | Type         | Description         |
+|--------|--------------|---------------------|
+| DEPTNO | NUMBER(2)    | Department number (PK) |
+| DNAME  | VARCHAR2(14) | Department name     |
+| LOC    | VARCHAR2(13) | Location            |
 
-- Host: `oracle`
-- Port: `1521`
-- Service: `XEPDB1`
-- User: `user`
-- Password: `password`
+**EMP**
 
-### MySQL
-
-- Host: `db`
-- Port: `3306`
-- Database: `DB`
-- User: `user`
-- Password: `password`
-
-## CLI Usage
-
-Connect to MySQL from inside the dev container:
-
-```bash
-mysql -h db -u user -ppassword DB
-```
-
-Connect to Oracle from inside the dev container:
-
-```bash
-sqlplus '"user"/"password"@//oracle:1521/XEPDB1'
-```
-
-Use the helper script:
-
-```bash
-chmod +x ./scripts/db.sh
-./scripts/db.sh mysql
-./scripts/db.sh oracle
-```
-
-## Web DB Viewer
-
-The compose stack also includes CloudBeaver, a browser-based database client that can connect to both Oracle and MySQL.
-
-- URL: `http://localhost:8978`
-- Add a MySQL connection with host `db`, port `3306`, database `DB`, user `user`, password `password`
-- Add an Oracle connection with host `oracle`, port `1521`, service `XEPDB1`, user `user`, password `password`
-
-If your dev container is already running, rebuild or restart the compose stack so the new service starts.
-
-## Useful Notes
-
-### MySQL
-
-- End statements with `;`
-- Use `\G` for vertical output when helpful
-
-### Oracle
-
-- End PL/SQL blocks with `/`
-- Enable printed output with `SET SERVEROUTPUT ON`
-
-Example Oracle block:
-
-```sql
-SET SERVEROUTPUT ON
-
-BEGIN
-  DBMS_OUTPUT.PUT_LINE('Hello Oracle');
-END;
-/
-```
-
-## Project Structure
-
-- `.devcontainer/docker-compose.yml`: Oracle, MySQL, CloudBeaver, and the dev container
-- `.devcontainer/Dockerfile`: installs SQL\*Plus and MySQL CLI tools
-- `scripts/db.sh`: quick database connection helper
+| Column   | Type         | Description              |
+|----------|--------------|--------------------------|
+| EMPNO    | NUMBER(4)    | Employee number (PK)     |
+| ENAME    | VARCHAR2(10) | Employee name            |
+| JOB      | VARCHAR2(9)  | Designation              |
+| MGR      | NUMBER(4)    | Manager's EMPNO (FK)     |
+| HIREDATE | DATE         | Date of joining          |
+| SAL      | NUMBER(7,2)  | Monthly salary           |
+| COMM     | NUMBER(7,2)  | Commission (NULL = none) |
+| DEPTNO   | NUMBER(2)    | Department (FK → DEPT)   |
