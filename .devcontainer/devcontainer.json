@@ -1,0 +1,33 @@
+{
+  "name": "Oracle PL/SQL + MySQL",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "remoteUser": "user",
+  "postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
+  "forwardPorts": [1521, 3306, 8978],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "oracle.oracledevtools",
+        "cweijan.vscode-mysql-client2",
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-mysql",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "mysql.connections": [
+          {
+            "host": "db",
+            "port": 3306,
+            "database": "appdb",
+            "username": "appuser",
+            "password": "password",
+            "name": "local-mysql",
+            "ssl": false
+          }
+        ]
+      }
+    }
+  }
+}
